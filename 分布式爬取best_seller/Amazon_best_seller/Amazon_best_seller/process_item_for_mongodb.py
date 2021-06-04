@@ -13,9 +13,9 @@ def process_item():
     mongocli = pymongo.MongoClient(host = "127.0.0.1", port = 27017)
 
     # 创建mongodb数据库名称
-    dbname = mongocli["amazon_de"]
-    # 创建mongodb数据库youyuan的表名称
-    sheetname = dbname["best_seller_kic"] #类目
+    dbname = mongocli["UK_AMZ"]
+    # 创建mongodb数据库的表名称
+    sheetname = dbname["DiyAndTools20210604"] #类目
     offset = 0
 
     while True:
@@ -24,7 +24,7 @@ def process_item():
         offset += 1
         # 将json对象转换为Python对象
         data = json.loads(data)
-        print(data)
+        print(source,data)
         # 将数据插入到sheetname表里
         sheetname.insert(data)
         print (offset)
@@ -33,3 +33,6 @@ def process_item():
 
 if __name__ == "__main__":
     process_item()
+
+
+

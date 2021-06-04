@@ -7,12 +7,11 @@ import scrapy
 
 from Amazon_best_seller.items import AmazonBestSellerItem
 
-
 #使用scrapy_redis
 from scrapy_redis.spiders import RedisSpider
 class BestsellerSpider(RedisSpider):
     name = 'BestSeller'
-    allowed_domains = ['www.amazon.com/gp/bestsellers/']
+    allowed_domains = ['www.amazon.co.uk/gp/bestsellers/']
     # start_urls = ['http://www.amazon.ca/gp/bestsellers//']
     redis_key = 'BestSeller:start_urls'
 
@@ -30,7 +29,7 @@ class BestsellerSpider(RedisSpider):
             '''将数据保存到redis重新爬取'''
             print('有验证码。。。',response.url)
             URL=response.url
-            conn = redis.Redis(host='192.168.31.104', port=6379, )
+            conn = redis.Redis(host='192.168.0.128', port=6379, )
             conn.lpush('BestSeller:start_urls', URL)
             print('将链接重新加入到redis数据库中', URL)
             # time.sleep(random.randint(2,5))
@@ -48,7 +47,7 @@ class BestsellerSpider(RedisSpider):
         commodity_info['kinds_of_commodity'] = kinds_of_commodity
 
         list_lis = response.xpath('//*[@id="zg-ordered-list"]//li')
-        if list_lis:
+        if  len(list_lis):
             print('list_lis 长度', len(list_lis))
             for each_li in list_lis:
                 # 1.详情页链接

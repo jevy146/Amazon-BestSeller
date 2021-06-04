@@ -31,18 +31,8 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderQueue"
 # 允许暂停，redis请求记录不丢失
 SCHEDULER_PERSIST = True
 
-REDIS_HOST = "192.168.31.104"
+REDIS_HOST = "127.0.0.1"
 REDIS_PORT = 6379
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -80,9 +70,9 @@ RANDOMIZE_DOWNLOAD_DELAY = True   #随机化—下载-延迟
 ''' 自动调节爬虫速度'''
 AUTOTHROTTLE_ENABLED = True
 #起始的延迟
-AUTOTHROTTLE_START_DELAY = 3
+AUTOTHROTTLE_START_DELAY = 5
 #最小延迟
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 4
 #最大延迟
 AUTOTHROTTLE_MAX_DELAY = 15
 #每秒并发请求数的平均值，不能高于 CONCURRENT_REQUESTS_PER_DOMAIN或CONCURRENT_REQUESTS_PER_IP，调高了则吞吐量增大强奸目标站点，调低了则对目标站点更加”礼貌“
@@ -96,10 +86,6 @@ CONCURRENT_REQUESTS_PER_IP =5    # 单个IP的并发请求数，原先值为16
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # 配置Scrapy执行的最大并发请求（默认值：16）
 CONCURRENT_REQUESTS = 1 #类似于线程数量。。默认是16，一下子提交16个强求。。
-
-
-
-
 
 
 
@@ -143,6 +129,7 @@ ITEM_PIPELINES = {
    # 'Amazon_best_seller.pipelines.AmazonBestSellerPipeline': 300, #将数据保存到本地的内存中
     'scrapy_redis.pipelines.RedisPipeline': 400, #将数据保存到redis数据库中
 }
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
